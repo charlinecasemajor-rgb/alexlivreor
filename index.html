@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Merci ptit chou — le livre d’or d’Alex</title>
+<meta name="description" content="Le livre d’or de l’équipe pour le départ d’Alex.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩵</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,62..125,300..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ciel:#A9D2F2;
+    --ciel-pale:#E4F1FB;
+    --encre:#0F1A2B;
+    --acier:#4E6A86;
+    --blanc:#FBFDFF;
+    --bleu:#2E6FB5;
+    --erreur:#B3261E;
+    --font:"Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);background:var(--ciel);color:var(--encre);
+       font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  button,textarea{font:inherit;color:inherit}
+  button{background:none;border:0;cursor:pointer}
+  :focus-visible{outline:3px solid var(--bleu);outline-offset:3px}
+  [hidden]{display:none !important}
+
+  .display{font-weight:900;font-stretch:62%;text-transform:uppercase;line-height:.84;letter-spacing:-.01em}
+  .wrap{width:min(1240px, 100% - 40px);margin-inline:auto}
+
+  /* HERO */
+  .hero{min-height:100svh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+  .bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 0;font-size:14px;font-weight:600}
+  .bar a{color:inherit;text-decoration:none;border-bottom:2px solid currentColor}
+  .hero-stage{flex:1;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+  .hero-photo{position:relative;z-index:3;width:min(400px,68vw);aspect-ratio:3/4;object-fit:cover;
+              margin-bottom:-11vw;box-shadow:0 30px 60px -30px rgba(15,26,43,.55)}
+  .hero-name{position:relative;z-index:2;font-size:38vw;width:100%;text-align:center;white-space:nowrap;margin-bottom:-.06em}
+  .hero-name span{display:inline-block}
+  .hero-left,.hero-tag{position:absolute;z-index:4;top:12%;max-width:230px;font-weight:700;font-size:15px;line-height:1.3}
+  .hero-left{left:0}
+  .hero-tag{right:0;text-align:right}
+  .hero-tag b{display:block;font-size:44px;font-weight:900;font-stretch:62%;line-height:.9;margin-bottom:6px}
+
+  /* MARQUEE */
+  .marquee{background:var(--encre);color:var(--ciel);overflow:hidden;white-space:nowrap;position:relative;z-index:4}
+  .marquee-track{display:inline-flex;animation:defile 26s linear infinite;padding:14px 0}
+  .marquee-track span{font-size:clamp(28px,4.4vw,56px);padding-right:.6em}
+  .marquee-track i{font-style:normal;color:var(--blanc);padding-right:.6em}
+  @keyframes defile{to{transform:translateX(-50%)}}
+
+  /* ÉCRIRE */
+  .ecrire{background:var(--blanc);padding:clamp(56px,8vw,120px) 0}
+  .ecrire-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(32px,6vw,90px);align-items:start}
+  .ecrire h2{font-size:clamp(60px,9vw,136px);margin-bottom:28px}
+  .ecrire .lead{font-size:19px;max-width:40ch;margin-bottom:28px}
+  .compteur{font-weight:800;font-stretch:80%;font-size:22px;margin-bottom:10px}
+  .progress{display:flex;gap:4px;max-width:420px}
+  .progress i{flex:1;height:10px;background:var(--ciel-pale);border:1px solid var(--ciel)}
+  .progress i.ok{background:var(--encre);border-color:var(--encre)}
+  .note-alex{margin-top:28px;font-size:15px;color:var(--acier);font-weight:600;max-width:36ch}
+
+  .etape{font-weight:800;font-stretch:80%;font-size:22px;margin-bottom:14px}
+  .noms{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:36px}
+  .nom{border:2px solid var(--encre);padding:14px 12px;text-align:left;font-weight:800;font-stretch:75%;
+       text-transform:uppercase;font-size:21px;line-height:1;transition:background .15s,color .15s}
+  .nom:hover:not(:disabled){background:var(--ciel-pale)}
+  .nom[aria-pressed="true"],.nom[aria-pressed="true"]:hover{background:var(--encre);color:var(--blanc)}
+  .nom:disabled{border-color:var(--ciel);color:var(--acier);cursor:not-allowed}
+  .nom:disabled::after{content:" ✓";font-stretch:100%}
+  textarea{width:100%;min-height:240px;resize:vertical;border:2px solid var(--encre);background:var(--blanc);
+           padding:18px;font-size:18px;line-height:1.6}
+  textarea:focus{outline:none;border-color:var(--bleu);box-shadow:0 0 0 3px var(--ciel)}
+  .ligne{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin-top:16px}
+  .chars{font-size:14px;font-weight:600;color:var(--acier)}
+  .btn{display:inline-flex;align-items:center;gap:12px;background:var(--encre);color:var(--blanc);
+       font-weight:800;font-stretch:80%;text-transform:uppercase;letter-spacing:.02em;font-size:18px;
+       padding:18px 30px;border:2px solid var(--encre);transition:background .2s,color .2s;text-decoration:none}
+  .btn:hover:not(:disabled){background:var(--ciel);color:var(--encre)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .erreur{color:var(--erreur);font-weight:700;margin-top:14px;min-height:1.5em}
+  .merci{border-top:2px solid var(--encre);padding-top:28px}
+  .merci .display{font-size:clamp(64px,10vw,140px);color:var(--bleu);margin-bottom:20px}
+  .merci p{font-size:19px;max-width:44ch}
+
+  /* PELLICULE */
+  .pellicule{background:var(--ciel);padding:28px 0;overflow-x:auto;scrollbar-width:none}
+  .pellicule::-webkit-scrollbar{display:none}
+  .pellicule-row{display:flex;gap:12px;padding-inline:20px;width:max-content}
+  .pellicule img{height:min(46vh,380px);width:auto;aspect-ratio:3/4;object-fit:cover}
+
+  /* LIVRE */
+  .livre{background:var(--encre);color:var(--blanc);padding:clamp(64px,10vw,140px) 0}
+  .livre-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+  .livre h2{font-size:clamp(64px,12vw,180px);color:var(--ciel)}
+  .livre-head p{font-weight:700;max-width:30ch}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
+  .carte{padding:28px 26px;border:2px solid var(--ciel)}
+  .carte h3{font-size:60px;color:var(--ciel);margin-bottom:16px}
+  .carte p{white-space:pre-line;color:#DCE8F4;font-size:18px;line-height:1.6}
+  .carte:nth-child(3n+2){background:var(--ciel);color:var(--encre);border-color:var(--ciel)}
+  .carte:nth-child(3n+2) h3{color:var(--encre)}
+  .carte:nth-child(3n+2) p{color:var(--encre)}
+  .carte figure img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:20px}
+
+  /* FIN */
+  .fin{background:var(--ciel);padding:clamp(70px,10vw,140px) 0 calc(28px + env(safe-area-inset-bottom,0px))}
+  .fin h2{font-size:clamp(80px,17vw,260px);margin-bottom:40px}
+  .fin-bas{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-weight:700;font-size:14px;
+           border-top:2px solid var(--encre);padding-top:16px}
+
+  .chargement{background:var(--blanc);padding:120px 0;font-weight:800;font-stretch:80%;font-size:24px}
+
+  @media (max-width:860px){
+    .ecrire-grid{grid-template-columns:1fr}
+    .hero-left{display:none}
+    .hero-tag{top:4%;max-width:170px}
+    .hero-tag b{font-size:34px}
+    .hero-photo{margin-bottom:-6vw}
+    .noms{grid-template-columns:repeat(2,1fr)}
+    .pellicule img{height:300px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .marquee-track{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap bar">
+    <span>Le livre d’or d’Alex</span>
+    <a href="#contenu" id="barLien">Écrire mon mot</a>
+  </div>
+  <div class="wrap hero-stage">
+    <p class="hero-left" id="heroLeft">Tu pars.<br>On a deux trois trucs à te dire avant.</p>
+    <p class="hero-tag" id="heroTag"><b>13</b>collègues, un livre d’or, ouvert quand tout le monde a écrit.</p>
+    <img class="hero-photo" src="photos/img_7704.jpg" alt="Alex en selfie, ciel bleu derrière">
+    <h1 class="display hero-name" aria-label="Alex"><span>Alex</span></h1>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track display" id="marquee"></div></div>
+
+<main id="contenu">
+  <section class="chargement" id="chargement"><div class="wrap">Chargement du livre…</div></section>
+
+  <!-- MODE ÉCRITURE : tant que tout le monde n’a pas écrit -->
+  <section class="ecrire" id="ecrire" hidden>
+    <div class="wrap ecrire-grid">
+      <div>
+        <h2 class="display">Laisse<br>ton mot.</h2>
+        <p class="lead">Choisis ton prénom et écris à Alex. Personne ne lit rien avant la fin : le livre s’ouvre tout seul quand les 13 messages sont là.</p>
+        <p class="compteur" id="compteur"></p>
+        <div class="progress" id="progress" aria-hidden="true"></div>
+        <p class="note-alex">Alex, si tu passes par là : pas encore, ptit chou.</p>
+      </div>
+
+      <div id="formZone">
+        <p class="etape" id="labelNoms">Tu es…</p>
+        <div class="noms" id="noms" role="group" aria-labelledby="labelNoms"></div>
+        <label class="etape" for="message" style="display:block">Ton message pour Alex</label>
+        <textarea id="message" placeholder="Oh my gode, par où commencer…"></textarea>
+        <div class="ligne">
+          <span class="chars" id="chars"></span>
+          <button class="btn" id="envoyer" type="button" disabled>Envoyer mon message</button>
+        </div>
+        <p class="erreur" id="erreur" role="alert"></p>
+      </div>
+
+      <div class="merci" id="merci" hidden>
+        <p class="display">Merci <span id="merciNom"></span>.</p>
+        <p>Ton message est bien enregistré. Alex le lira quand tout le monde aura écrit.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="pellicule" aria-label="Photos d’Alex"><div class="pellicule-row" id="pellicule"></div></div>
+
+  <!-- MODE LECTURE : une fois le livre fermé -->
+  <section class="livre" id="livre" hidden>
+    <div class="wrap">
+      <div class="livre-head">
+        <h2 class="display">Livre d’or</h2>
+        <p id="livreEtat"></p>
+      </div>
+      <div class="cartes" id="cartes"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="fin">
+  <div class="wrap">
+    <h2 class="display">Merci<br>ptit chou.</h2>
+    <div class="fin-bas"><span>1 persona = 1 offre. 1 Alex = 0 remplaçant.</span><span>L’équipe</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const PHOTOS = [
+    "photos/img_7704.jpg", "photos/img_5437.jpg", "photos/img_9491_2.jpg", "photos/img_1144.jpg",
+    "photos/img_9569.jpg", "photos/img_5702.jpg", "photos/img_2406.jpg", "photos/img_9486_2.jpg",
+    "photos/img_1834.jpg", "photos/img_7289_2.jpg",
+  ];
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const DEMO = new URLSearchParams(location.search).get("demo"); // ?demo=ouvert ou ?demo=ferme
+  const DEJA = "livre-alex-envoye";
+
+  // Bandeau + pellicule
+  const seq = ["Ptit chou","1 persona = 1 offre","Oh my gode","Merci Alex"].map(p => `<span>${p}</span><i>✦</i>`).join("");
+  $("marquee").innerHTML = seq.repeat(4);
+  $("pellicule").innerHTML = PHOTOS.map(src => `<img src="${src}" alt="Alex" loading="lazy">`).join("");
+
+  // « ALEX » remplit toute la largeur, quelle que soit la police
+  const nameEl = document.querySelector(".hero-name"), nameSpan = nameEl.querySelector("span");
+  const fit = () => { nameEl.style.fontSize = "100px"; nameEl.style.fontSize = (100 * nameEl.clientWidth / nameSpan.getBoundingClientRect().width) + "px"; };
+  fit(); addEventListener("resize", fit); document.fonts?.ready.then(fit);
+
+  let etat = null, choisi = null;
+
+  async function api(method, body){
+    if (DEMO) return demo(method, body);
+    const r = await fetch("/api/livre", {
+      method, headers: {"Content-Type":"application/json"},
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const data = await r.json().catch(() => ({ erreur: "Réponse illisible du serveur." }));
+    if (!r.ok) throw new Error(data.erreur || "Erreur inconnue.");
+    return data;
+  }
+
+  function render(){
+    $("chargement").hidden = true;
+    const total = etat.noms.length, n = etat.ecrits.length;
+    $("heroTag").innerHTML = `<b>${total}</b>` + (etat.ferme
+      ? "messages de l’équipe. Le livre est ouvert, il est pour toi."
+      : "collègues, un livre d’or, ouvert quand tout le monde a écrit.");
+
+    if (etat.ferme){
+      $("ecrire").hidden = true;
+      $("livre").hidden = false;
+      $("barLien").textContent = "Lire le livre d’or";
+      $("barLien").href = "#livre";
+      $("livreEtat").textContent = etat.messages.length === total
+        ? `${total} messages. Prends ton temps, ptit chou.`
+        : `${etat.messages.length} messages sur ${total}. Prends ton temps, ptit chou.`;
+      $("cartes").innerHTML = etat.messages.map((m, i) => `
+        <article class="carte">
+          ${i % 4 === 3 ? `<figure><img src="${PHOTOS[(i + 2) % PHOTOS.length]}" alt="" loading="lazy"></figure>` : ""}
+          <h3 class="display">${esc(m.nom)}</h3>
+          <p>${esc(m.message)}</p>
+        </article>`).join("");
+      return;
+    }
+
+    $("ecrire").hidden = false;
+    $("livre").hidden = true;
+    $("compteur").textContent = `${n} sur ${total} ont écrit`
+      + (etat.dateLimite ? ` · fermeture à ${new Date(etat.dateLimite).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"}).replace(":", " h ")}` : "");
+    if (etat.dateLimite && !window._minuteur){
+      window._minuteur = setTimeout(() => api("GET").then(d => { etat = d; render(); }),
+        Math.max(0, new Date(etat.dateLimite) - Date.now()) + 2000);
+    }
+    $("progress").innerHTML = etat.noms.map(nom => `<i class="${etat.ecrits.includes(nom) ? "ok" : ""}"></i>`).join("");
+
+    const deja = (() => { try { return localStorage.getItem(DEJA); } catch(e){ return null; } })();
+    if (deja && etat.ecrits.includes(deja)){
+      $("formZone").hidden = true; $("merci").hidden = false; $("merciNom").textContent = deja;
+      return;
+    }
+    $("noms").innerHTML = etat.noms.map(nom => {
+      const fait = etat.ecrits.includes(nom);
+      return `<button class="nom" type="button" data-nom="${esc(nom)}" aria-pressed="${nom === choisi}" ${fait ? `disabled aria-label="${esc(nom)}, a déjà écrit"` : ""}>${esc(nom)}</button>`;
+    }).join("");
+    $("noms").querySelectorAll(".nom").forEach(b => b.onclick = () => { choisi = b.dataset.nom; render(); maj(); });
+    maj();
+  }
+
+  function maj(){
+    const len = $("message").value.trim().length, max = etat.maxCaracteres;
+    $("chars").textContent = choisi ? `${len} / ${max} caractères` : "Choisis d’abord ton prénom.";
+    $("envoyer").disabled = !choisi || len < 2 || len > max;
+  }
+  $("message").addEventListener("input", maj);
+
+  $("envoyer").onclick = async () => {
+    $("erreur").textContent = "";
+    $("envoyer").disabled = true;
+    $("envoyer").textContent = "Envoi…";
+    try {
+      etat = await api("POST", { nom: choisi, message: $("message").value });
+      try { localStorage.setItem(DEJA, choisi); } catch(e){}
+      $("message").value = "";
+      render();
+    } catch (e) {
+      $("erreur").textContent = e.message;
+      maj();
+    } finally {
+      $("envoyer").textContent = "Envoyer mon message";
+    }
+  };
+
+  // Données de démonstration (?demo=ouvert / ?demo=ferme), sans base de données
+  function demo(method, body){
+    const noms = ["Axel","Dino","Lea","Mathilde","Marie","Maxence","Arnaud","Marc","Jules","Kelyan","Pauline L","Pauline A","Charline"];
+    const texte = n => `Alex, ${n} ici. Oh my gode, ça va être bizarre sans toi.\nMerci pour tout, et n’oublie jamais : 1 persona = 1 offre.\nPtit chou forever.`;
+    const ecrits = DEMO === "ferme" ? noms : noms.slice(0, 5);
+    if (method === "POST") ecrits.push(body.nom);
+    return Promise.resolve({
+      noms, ecrits, ferme: DEMO === "ferme", maxCaracteres: 2000,
+      messages: DEMO === "ferme" ? noms.map(n => ({ nom: n, message: texte(n) })) : [],
+    });
+  }
+
+  api("GET").then(d => { etat = d; render(); }).catch(e => {
+    $("chargement").querySelector(".wrap").textContent = e.message;
+  });
+})();
+</script>
+</body>
+</html>
